@@ -1,6 +1,6 @@
 export interface Product{
     productId:number;
-    categoryId:number;
+    categoryID:number;
     productName:string;
     unitsInStock:number;
     unitPrice:number;
