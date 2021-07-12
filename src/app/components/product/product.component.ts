@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/models/product';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from '../../services/product.service';
 
 @Component({
@@ -12,8 +14,10 @@ export class ProductComponent implements OnInit {
   title="Ürün Listesi";
   products: Product[] = [];
   dataLoaded = false;
+  filterText="";
 
-  constructor(private productService: ProductService, private activatedRoute:ActivatedRoute) { }
+  constructor(private productService: ProductService, private activatedRoute:ActivatedRoute, private toastrService:ToastrService,
+    private cartService:CartService) { }
 
   ngOnInit(): void {    //neOnInıt ne işe yarıyor? yazdığın methodlardan hangisinin çalıştırılacağını söylüyorsun. birden fazlası çalıştırılması gerekirse farklı durumlara göre, o durumları belirteceksin if ile.
     this.activatedRoute.params.subscribe(params => {  //params = parametreler. routenin parametrelerine subscribe olduk çünkü observable dönüyor. akışa girdik burada veri akışına.
@@ -38,5 +42,10 @@ export class ProductComponent implements OnInit {
       this.products = response.data;
       this.dataLoaded = true;
     })
+  }
+
+  addToCart(product:Product) {
+    this.toastrService.success("Sepete eklendi",product.productName);
+    this.cartService.addToCart(product);
   }
 }

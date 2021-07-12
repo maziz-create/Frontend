@@ -1,0 +1,9 @@
+.badge-remove {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.badge-remove:hover {
+    opacity: 0.8;
+}
